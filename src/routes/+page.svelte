@@ -1,8 +1,29 @@
 <script lang="ts">
-  import { enhance } from '$app/forms';
+  import { goto } from '$app/navigation';
+  import { auth } from '$lib/firebase-init';
+  import { signInWithEmailAndPassword } from 'firebase/auth';
+
+  const defaultMessage = 'Enter your credentials';
 
   let email = '';
   let password = '';
+  let loading = false;
+  let hasError = false;
+
+  $: if (password || email) hasError = false;
+
+  const handleLogin = async () => {
+    loading = true;
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      goto('/secret');
+    } catch (error) {
+      hasError = true;
+      email = '';
+      password = '';
+    }
+    loading = false;
+  };
 </script>
 
 <svelte:head>
@@ -13,7 +34,11 @@
 <h1>Login</h1>
 
 <article>
-  <form method="POST" use:enhance>
+  <form on:submit|preventDefault={handleLogin}>
+    <div class="message" class:error={hasError}>
+      {!hasError ? 'Enter your credentials' : 'User not found! Please try again'}
+    </div>
+
     <div class="grid">
       <div>
         <input placeholder="E-Mail" type="text" bind:value={email} />
@@ -22,6 +47,23 @@
         <input placeholder="Password" type="text" bind:value={password} />
       </div>
     </div>
-    <button class="outlined">Login</button>
+
+    {#if loading}
+      <button aria-busy="true" class="outline" disabled>Please wait...</button>
+    {:else}
+      <button class="outline">Login</button>
+    {/if}
   </form>
 </article>
+
+<style>
+  .message {
+    text-align: center;
+    min-height: 28px;
+    margin-bottom: 1rem;
+  }
+
+  .error {
+    color: #c44d56;
+  }
+</style>

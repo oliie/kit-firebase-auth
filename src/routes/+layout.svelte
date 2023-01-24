@@ -1,6 +1,6 @@
-<script>
-  import Header from '$lib/components/Header.svelte';
+<script lang="ts">
   import '@picocss/pico/css/pico.min.css';
+  import Header from '$lib/components/Header.svelte';
 </script>
 
 <Header />
