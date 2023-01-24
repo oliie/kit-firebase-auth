@@ -3,8 +3,6 @@
   import { auth } from '$lib/firebase-init';
   import { signInWithEmailAndPassword } from 'firebase/auth';
 
-  const defaultMessage = 'Enter your credentials';
-
   let elForm: HTMLFormElement;
   let email = '';
   let password = '';
@@ -14,15 +12,15 @@
   $: if (password || email) hasError = false;
 
   const handleLogin = async () => {
-    loading = true;
     try {
+      loading = true;
       await signInWithEmailAndPassword(auth, email, password);
       goto('/secret');
     } catch (error) {
       hasError = true;
       elForm.reset();
+      loading = false;
     }
-    loading = false;
   };
 </script>
 
