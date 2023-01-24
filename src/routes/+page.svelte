@@ -5,6 +5,7 @@
 
   const defaultMessage = 'Enter your credentials';
 
+  let elForm: HTMLFormElement;
   let email = '';
   let password = '';
   let loading = false;
@@ -19,8 +20,7 @@
       goto('/secret');
     } catch (error) {
       hasError = true;
-      email = '';
-      password = '';
+      elForm.reset();
     }
     loading = false;
   };
@@ -34,7 +34,7 @@
 <h1>Login</h1>
 
 <article>
-  <form on:submit|preventDefault={handleLogin}>
+  <form bind:this={elForm} on:submit|preventDefault={handleLogin}>
     <div class="message" class:error={hasError}>
       {!hasError ? 'Enter your credentials' : 'User not found! Please try again'}
     </div>
