@@ -7,7 +7,7 @@ export async function load({ cookies }: LayoutServerLoadEvent) {
 
   if (uid) {
     return { uid };
-  } else {
-    throw redirect(307, '/');
   }
+
+  throw redirect(307, '/');
 }
