@@ -1,7 +1,7 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { auth } from '$lib/firebase-init';
-  import { signInWithEmailAndPassword } from 'firebase/auth';
+  import { auth } from '$lib/firebase/client';
+  import { signIn } from '$stores/auth';
 
   let elForm: HTMLFormElement;
   let email = '';
@@ -14,7 +14,7 @@
   const handleLogin = async () => {
     try {
       loading = true;
-      await signInWithEmailAndPassword(auth, email, password);
+      await signIn(email, password);
       goto('/secret');
     } catch (error) {
       hasError = true;
@@ -39,10 +39,10 @@
 
     <div class="grid">
       <div>
-        <input placeholder="E-Mail" type="text" bind:value={email} />
+        <input placeholder="E-Mail" type="email" bind:value={email} required />
       </div>
       <div>
-        <input placeholder="Password" type="text" bind:value={password} />
+        <input placeholder="Password" type="password" bind:value={password} required />
       </div>
     </div>
 

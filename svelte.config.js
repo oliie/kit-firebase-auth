@@ -8,7 +8,13 @@ const config = {
   preprocess: vitePreprocess(),
 
   kit: {
-    adapter: adapter()
+    adapter: adapter(),
+    env: {
+      publicPrefix: 'PUBLIC'
+    },
+    alias: {
+      $stores: 'src/stores'
+    }
   }
 };
 

@@ -1,4 +1,15 @@
-<h1 class="center">You're in!</h1>
+<script lang="ts">
+  import { user } from '$stores/auth';
+</script>
+
+<hgroup>
+  <h1 class="center">You're in!</h1>
+  {#if $user?.email}
+    <h2 class="center">Logged in as {$user.email}</h2>
+  {:else}
+    <h2 class="center">Loading user...</h2>
+  {/if}
+</hgroup>
 
 <div class="center">
   <img
