@@ -1,6 +1,5 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { auth } from '$lib/firebase/client';
   import { signIn } from '$stores/auth';
 
   let elForm: HTMLFormElement;

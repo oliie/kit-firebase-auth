@@ -19,15 +19,15 @@
         <a class:active={$page.route.id === '/'} href="/" class="secondary outline">Login</a>
       </li>
       <li>
-        <a class:active={$page.route.id === '/secret'} href="/secret" class="secondary outline"
-          >Secret</a
-        >
+        <a class:active={$page.route.id === '/secret'} href="/secret" class="secondary outline">
+          Secret
+        </a>
       </li>
       {#if $user}
         <li>
-          <a on:click={handleSignOut} data-role="button" href="/" class="secondary outline"
-            >Signout</a
-          >
+          <a on:click={handleSignOut} data-role="button" href="/" class="secondary outline">
+            Signout
+          </a>
         </li>
       {/if}
     </ul>
